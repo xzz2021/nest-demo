@@ -4,7 +4,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 
-@Controller() // 默认空，代表路径127.0.0.1：3000
+@Controller('app') // 默认空，代表路径127.0.0.1：3000
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -13,12 +13,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('66') // 定义请求方法及次级路径
+  @Get('string') // 定义请求方法及次级路径
   getHello2(): string {
     return this.appService.getHello2();
   }
 
-  @Get(':id') // 定义请求方法及次级路径
+  @Get(':id') // 定义请求方法及次级路径 // 此处定义的变量是字符串，会与下级resource的controller冲突
  getHello3(@Param('id') id: string): any {
       let arr =[]
       for(let i = 0; i < Number(id); i++) {

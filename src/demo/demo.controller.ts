@@ -3,12 +3,12 @@ import { DemoService } from './demo.service';
 import { CreateDemoDto } from './dto/create-demo.dto';
 import { UpdateDemoDto } from './dto/update-demo.dto';
 
-@Controller('demo')
+@Controller('demo/user')
 export class DemoController {
   //  下面这行使用了语法糖 相当于 this.demoService = new DemoService()
   constructor(private readonly demoService: DemoService) {}
 
-  @Post()
+  @Post()  //  定义新增post请求
   create(@Body() createDemoDto: CreateDemoDto) {
     return this.demoService.create(createDemoDto);
   }
@@ -18,9 +18,9 @@ export class DemoController {
     return this.demoService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.demoService.findOne(+id);
+  @Post('/find')
+  findOne(@Body('username') username: string) {
+    return this.demoService.findOne(username);
   }
 
   @Patch(':id')
