@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DemoModule } from './demo/demo.module';
 import { ConfigModule } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 @Module({
@@ -17,7 +18,19 @@ import { ConfigModule } from '@nestjs/config'
         // validationSchema: Joi.object({ TESTPWD: Joi.string().default('defff')}),  //检验导入的ConfigModule全局变量类型是否合法
       }  
     ),
-    DemoModule],
+    DemoModule,
+    TypeOrmModule.forRoot({   // 数据库集成orm
+      type: 'mysql',
+      host: 'xzz2022.top',
+      port: 3306,
+      username: 'root',
+      password: 'zzzxxxccc',
+      database: 'xzz222',
+      entities: [],
+      synchronize: true,  // 同步本地的schema与数据库
+      logging: ['error'],  //日志记录类型
+    }), 
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
