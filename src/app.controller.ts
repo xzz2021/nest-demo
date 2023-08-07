@@ -19,19 +19,15 @@ export class AppController {
   }
 
   @Get(':id') // 定义请求方法及次级路径
-  getHello3(@Param('id') id: string): any {
-    async function getArr(){
+ getHello3(@Param('id') id: string): any {
       let arr =[]
-      for(let i = 0; i < id.length; i++) {
-       await arr.push(i + 1)
+      for(let i = 0; i < Number(id); i++) {
+        arr.push(i + 1 +'')
       }
-      return arr
-    }
     return {
       code: 0,
       msg: '请求成功！',
-      data: getArr(),
-      id
+      data: arr,
     }
   }
 }
