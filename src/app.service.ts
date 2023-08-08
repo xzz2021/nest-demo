@@ -13,6 +13,6 @@ export class AppService {
   }
 
   getHello2(): any {
-    return  {msg: 'Hello World2222222222222!', pwd: process.env.TESTPWD, ppwd: this._config.get("TESTPWD")}
+    return  {msg: 'Hello World22!', pwd: process.env.TESTPWD, ppwd: this._config.get("TESTPWD")}
   }
 }

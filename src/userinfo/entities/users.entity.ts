@@ -5,11 +5,12 @@
 
 
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Profile } from './profile.entity';
+import { Logs } from './logs.entity';
 
 @Entity()
-export class User {
+export class Users {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -23,5 +24,6 @@ export class User {
     @OneToOne(() => Profile)   //关联表单，需要在关联的两张表的entity里都声明OneToOne， 实现映射
     profile: Profile;
 
-
+    @OneToMany(() => Logs, logs => logs.user)
+    logs: Logs[];
 }

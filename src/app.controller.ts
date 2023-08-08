@@ -1,5 +1,7 @@
 // controller 相当于路由分发，传参定义上级路径
 
+//  app作为全局资源入口
+
 import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
