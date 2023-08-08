@@ -1,20 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UserinfoService } from './userinfo.service';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 
+
 @Controller('userinfo')
 export class UserinfoController {
 
-  //主动调用日志打印
-    private logger = new Logger(UserinfoController.name)
-
-
   // 通过构造器传入 详细业务处理函数service
-  constructor(private readonly userinfoService: UserinfoService) {
-    
-    this.logger.log('控制器log开始')
+  constructor(
+    private readonly userinfoService: UserinfoService,
+    // private readonly logger: Logger,
 
+    ) {
   }
 
   @Post()  // 新增表格数据接口
@@ -45,6 +43,7 @@ export class UserinfoController {
 
   @Get('/getlogs/:id')  //  联合查询，一对一表格联动，需要有关键索引，此处为userid
   getLogs(@Param('id') id: number,) {
+    // this.logger.warn( {message:'==========='})
     return this.userinfoService.findLogsByGroup(id);
   }
 }

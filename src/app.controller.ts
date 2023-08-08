@@ -2,16 +2,22 @@
 
 //  app作为全局资源入口
 
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Inject, LoggerService, Param } from '@nestjs/common';
 import { AppService } from './app.service';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 
 
 @Controller('app') // 默认空，代表路径127.0.0.1：3000
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: LoggerService
+    ) {}
 
   @Get()
   getHello(): string {
+    this.logger.warn( {message:'==========='})
+
     return this.appService.getHello();
   }
 
