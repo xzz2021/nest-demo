@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DemoService } from './demo.service';
 import { CreateDemoDto } from './dto/create-demo.dto';
 import { UpdateDemoDto } from './dto/update-demo.dto';
+import { CreateProfileDto } from './dto/create-profile.dto';
 
 @Controller('demo/user')
 export class DemoController {
@@ -13,9 +14,19 @@ export class DemoController {
     return this.demoService.create(createDemoDto);
   }
 
+  @Post('/profile')  //  定义新增post请求
+  createProfile(@Body() createProfileDto: CreateProfileDto) {
+    return this.demoService.createProfile(createProfileDto);
+  }
+
   @Get()
   findAll() {
     return this.demoService.findAll();
+  }
+
+  @Get('/findProfile/:id')  //  联合查询，一对一表格联动，需要有关键索引，此处为userid
+  findProfile(@Param('id') id: number,) {
+    return this.demoService.findProfile(id);
   }
 
   @Post('/find')
