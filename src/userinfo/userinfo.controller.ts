@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,  All, HttpCode, Redirect, Query, UseFilters, ForbiddenException, ParseIntPipe } from '@nestjs/common';
 import { UserinfoService } from './userinfo.service';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 
+import { Logger } from '@nestjs/common';
 
+// @Controller({host: 'http://localhost：3000'})  // 可以控制请求来源
+// @UseFilters(new HttpExceptionFilter()) // 对整个控制器 进行  异常错误过滤处理
 @Controller('userinfo')
 export class UserinfoController {
 
@@ -16,11 +19,25 @@ export class UserinfoController {
   }
 
   @Post()  // 新增表格数据接口
-  create(@Body() createUsersoDto: CreateUsersDto) {
+  //  body后的dto定义传递过来的请求体数据格式
+  // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
+  create(@Body() createUsersoDto: CreateUsersDto) {  
+
     return this.userinfoService.create(createUsersoDto);
   }
 
+  @Get('testRedirect')  // 重定向接口  貌似可以作为迁移接口或测试接口使用
+  @Redirect('http://localhost:3000/userinfo/getlogs/3', 313)
+  testRedirect(@Query('version') version){      //  动态返回 重定向url
+    if (version && version == 'test') {
+      return { url: 'http://localhost:3000/userinfo/getlogs/1'};
+    }
+  }
+  
+
+
   @Get('/findProfile/:id')  //  联合查询，一对一表格联动，需要有关键索引，此处为userid
+
   findProfile(@Param('id') id: number,) {
     return this.userinfoService.findProfile(id);
   }
@@ -42,8 +59,27 @@ export class UserinfoController {
 
 
   @Get('/getlogs/:id')  //  联合查询，一对一表格联动，需要有关键索引，此处为userid
-  getLogs(@Param('id') id: number,) {
-    // this.logger.warn( {message:'==========='})
+  // @HttpCode(207)  
+  // @Header('Cache-Control', 'none')
+
+  // getLogs(@Param() params: any,   ${params.id} 
+// @UseFilters(new HttpExceptionFilter()) // 单个异常错误过滤处理
+    // ParseIntPipe会对传递来的id进行校验
+  getLogs(@Param('id', ParseIntPipe) id: number, 
+  ) {
+    // throw new ForbiddenException();
+    Logger.error('eeeeerror')
+    Logger.log('llllog')
+    Logger.warn('wwwwarn')
+    Logger.verbose('verbose')
     return this.userinfoService.findLogsByGroup(id);
   }
+
+  @All()
+  test(){
+    //暂不清楚作用
+    console.log("🚀 ~ file: userinfo.controller.ts:58 ~ UserinfoController ~ @All ~ All:")
+    
+  }
+
 }

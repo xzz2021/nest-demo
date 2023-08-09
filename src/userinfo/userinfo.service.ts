@@ -70,6 +70,7 @@ export class UserinfoService {
   async findLogsByGroup(id: number){  //  https://orkhan.gitbook.io/typeorm/docs/select-query-builder
     return this.logsRepository.createQueryBuilder('logs')
             .select('logs.status')
+            .select('*')
             .where('userId = :id', {id})
             .getRawMany()
   }
