@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 //  使用winston替代nest自带日志系统
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { HttpExceptionFilter } from './filter/http-exception';
+import { RequestInterceptor } from './interceptor/request';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +12,8 @@ async function bootstrap() {
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER))  //  全局替换日志系统
 
   // app.useGlobalFilters(new HttpExceptionFilter())  // 对全局请求异常错误的过滤器，排除网关
+  
+  app.useGlobalInterceptors(new RequestInterceptor())  //  对全局的接口 请求 进行日志记录
   await app.listen(3000);
 }
 bootstrap();

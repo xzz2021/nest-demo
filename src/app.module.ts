@@ -63,7 +63,7 @@ const { combine, timestamp, label, prettyPrint } = format;
       }),
       winston.format.printf((info) => {   // 定义文件输出内容
         // console.log("🚀 ~ file: app.module.ts:65 ~ winston.format.printf ~ info:", info)
-        return `时间:${info.timestamp},错误类型:${info.level},${info?.context ? `运行背景: ${info.context}` : `错误类别: ${info.level}` },错误信息: ${info.message}`
+        return `时间:${info.timestamp},日志类型:${info.level},${info?.context ? `运行背景: ${info.context}` : '' },日志信息: ${info.message}`
       })
         // label({ label: '测试' }),
         // timestamp(),

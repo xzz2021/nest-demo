@@ -69,15 +69,15 @@ export class UserinfoController {
   ) {
     // throw new ForbiddenException();
     Logger.error('eeeeerror')
-    Logger.log('llllog')
-    Logger.warn('wwwwarn')
-    Logger.verbose('verbose')
+    // Logger.log('llllog')
+    // Logger.warn('wwwwarn')
+    // Logger.verbose('verbose')
     return this.userinfoService.findLogsByGroup(id);
   }
 
+  //暂不清楚作用
   @All()
   test(){
-    //暂不清楚作用
     console.log("🚀 ~ file: userinfo.controller.ts:58 ~ UserinfoController ~ @All ~ All:")
     
   }
