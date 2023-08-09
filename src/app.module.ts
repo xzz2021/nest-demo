@@ -60,8 +60,6 @@ const { combine, timestamp, label, prettyPrint } = format;
       //   timestamp(),
       //   prettyPrint()
       // ),
-      
-
       transports: [  
         new winston.transports.Console({
           format: winston.format.combine(
