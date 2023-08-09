@@ -1,4 +1,3 @@
-
 // 这里定义接口请求日志拦截器
 /*
 https://docs.nestjs.com/interceptors#interceptors
@@ -7,10 +6,6 @@ import { Injectable,  NestInterceptor,  ExecutionContext, CallHandler, Logger } 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-// import { getLogger } from 'xmcommon';
-
-// const log = getLogger(__filename);
-// let requestSeq = 0;
 
 @Injectable()
 export class RequestInterceptor implements NestInterceptor {
@@ -26,7 +21,7 @@ export class RequestInterceptor implements NestInterceptor {
             .handle()
             .pipe(
                 tap(() =>  
-                    Logger.log(`请求接口: ${urlInfo}, 响应时间: ${Date.now() - start} ms  请求来源: ${reqHeaders.host}`),
+                    Logger.log(`请求接口: ${urlInfo}, 响应时间: ${Date.now() - start}ms, 请求来源: ${reqHeaders.host}`),
                 ),
             );
     }
