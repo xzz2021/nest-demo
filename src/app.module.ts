@@ -55,19 +55,18 @@ const { combine, timestamp, label, prettyPrint } = format;
       
       //  输出格式
       // format: winston.format.json(),
-      format: combine(
-        label({ label: '测试' }),
-        timestamp(),
-        prettyPrint()
-      ),
+      // format: combine(
+      //   label({ label: '测试' }),
+      //   timestamp(),
+      //   prettyPrint()
+      // ),
       
 
       transports: [  
         new winston.transports.Console({
           format: winston.format.combine(
-            timestamp(),
-            // prettyPrint()
-            
+              // label({ label: '测试' }),
+              timestamp(),
           ),
         }),
         // 输出文件
