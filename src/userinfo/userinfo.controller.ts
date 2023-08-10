@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,  All, HttpCode, Redirect, Query, UseFilters, ForbiddenException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,  All, HttpCode, Redirect, Query, UseFilters, ForbiddenException, ParseIntPipe, HttpException, HttpStatus } from '@nestjs/common';
 import { UserinfoService } from './userinfo.service';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
@@ -68,7 +68,16 @@ export class UserinfoController {
   getLogs(@Param('id', ParseIntPipe) id: number, 
   ) {
     // throw new ForbiddenException();
-    Logger.error('eeeeerror')
+    //  正常异常抛出
+
+      // throw new HttpException({
+      //   status: HttpStatus.FORBIDDEN,
+      //   error: 'This is a custom message',
+      // }, HttpStatus.FORBIDDEN, {
+      //   cause: 'test error'  // 抛出错误原因给日志打印
+      // })
+    
+    // Logger.error('eeeeerror')
     // Logger.log('llllog')
     // Logger.warn('wwwwarn')
     // Logger.verbose('verbose')

@@ -136,12 +136,17 @@ const { combine, timestamp, label, prettyPrint } = format;
   ],
   controllers: [AppController],
   providers: [AppService],
+  //  全局注入过滤器或其他组件
+  // providers: [{ provide: APP_FILTER,useClass: HttpExceptionFilter }]
+
+
 })
 // export class AppModule {}  //
 
 export class AppModule implements NestModule {
 
   configure(consumer: MiddlewareConsumer) {
+    // consumer.apply(cors(), helmet(), logger).forRoutes(CatsController);
     consumer
       .apply(HttpMiddleware)   //  应用中间件  // 这里可以传入多个中间件 
       .forRoutes('app')  // 这里还可以直接传入多个控制器
