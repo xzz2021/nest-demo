@@ -9,6 +9,7 @@ import { Logs } from './entities/logs.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Users, Profile, Logs])],  //子模块调用数据库必须进行引入表单
   controllers: [UserinfoController],
-  providers: [UserinfoService]
+  providers: [UserinfoService],
+  // exports: [UserinfoService]   //  当此处暴露出去后，就可以在引用了此UserinfoModule的其他模块中共享使用UserinfoService
 })
 export class UserinfoModule {}

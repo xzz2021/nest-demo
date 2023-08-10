@@ -5,19 +5,21 @@
 import { Controller, Get, Inject, LoggerService, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+// import { UserinfoService } from './userinfo/userinfo.service';
 
 
 @Controller('app') // 默认空，代表路径127.0.0.1：3000
 export class AppController {
   constructor(
     private readonly appService: AppService,
+    // private readonly userinfoService: UserinfoService,
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: LoggerService
     ) {}
 
   @Get()
-  getHello(): string {
+  getHello() {
     this.logger.warn( {message:'==========='})
-
+    // return this.userinfoService.findAll()
     return this.appService.getHello();
   }
 

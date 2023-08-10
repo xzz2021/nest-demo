@@ -1,6 +1,6 @@
 //module相当于某一总逻辑接口的入口
 
-import { Global, Module } from '@nestjs/common';
+import { Global, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config'
@@ -17,6 +17,7 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-win
 import  'winston-daily-rotate-file';
 
 import { format } from 'winston';
+import { HttpMiddleware } from './middleware/http';
 const { combine, timestamp, label, prettyPrint } = format;
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
@@ -136,4 +137,14 @@ const { combine, timestamp, label, prettyPrint } = format;
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+// export class AppModule {}  //
+
+export class AppModule implements NestModule {
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(HttpMiddleware)   //  应用中间件  // 这里可以传入多个中间件 
+      .forRoutes('app')  // 这里还可以直接传入多个控制器
+      // .forRoutes({ path: 'cats', method: RequestMethod.GET });  //指定使用的路由
+  }
+}
