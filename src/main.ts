@@ -12,6 +12,8 @@ async function bootstrap() {
   // app.setGlobalPrefix('全局接口前缀')
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER))  //  全局替换日志系统
 
+  // 全局filter只能有一个
+
   app.useGlobalFilters(new HttpExceptionFilter())  // 对全局请求异常错误的过滤器，排除网关
   
   app.useGlobalInterceptors(new RequestInterceptor())  //  对全局的接口 请求 进行日志记录

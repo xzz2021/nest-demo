@@ -2,12 +2,12 @@
 
 //  app作为全局资源入口
 
-import { Controller, Get, Inject, LoggerService, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Ip, LoggerService, Param, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 // import { UserinfoService } from './userinfo/userinfo.service';
 
-
+import { Request } from 'express';
 @Controller('app') // 默认空，代表路径127.0.0.1：3000
 export class AppController {
   constructor(
@@ -17,8 +17,12 @@ export class AppController {
     ) {}
 
   @Get()
-  getHello() {
-    this.logger.warn( {message:'==========='})
+  getHello(@Req() req: Request, @Ip() ippp: string) {
+    // this.logger.warn( {message:'==========='})
+    // this.logger.warn(req)
+
+    // this.logger.warn(req.ip)
+    // this.logger.warn(ippp)
     // return this.userinfoService.findAll()
     return this.appService.getHello();
   }

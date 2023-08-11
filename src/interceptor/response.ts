@@ -20,7 +20,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
         return next
             .handle()
             .pipe(
-                map((data) =>  {
+                map((data) =>  {  // 这里可以统一返回数据的模板格式
                     return data
                 // console.log("🚀 ~ file: response.ts:21 ~ ResponseInterceptor ~ map ~ data:", data)
 
