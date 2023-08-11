@@ -5,18 +5,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config'
 import { UserinfoModule } from './userinfo/userinfo.module';
-// import { WinstonModule } from 'nest-winston';
-// import * as winston from 'winston';
-
-
-// import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
-// import  'winston-daily-rotate-file';
 
 // import { format } from 'winston';
 import { HttpMiddleware } from './middleware/http';
 import { LoggerModule } from './logger/logger.module';
 import { OrmConfig } from './orm/ormconfig.module';
-// const { combine, timestamp, label, prettyPrint } = format;
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
 // @Global()  //  使此app模块引入的依赖能够作为全局依赖应用到所有子模块
@@ -32,7 +25,9 @@ import { OrmConfig } from './orm/ormconfig.module';
     ),
     UserinfoModule, // 用户信息处理模块
 
-     LoggerModule, OrmConfig
+    LoggerModule,   //打印日志模块
+     
+    OrmConfig,  //数据库配置模块
 
   ],
   controllers: [AppController],
