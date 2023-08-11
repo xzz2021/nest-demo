@@ -15,7 +15,7 @@ import { UserinfoModule } from './userinfo/userinfo.module';
 // import { format } from 'winston';
 import { HttpMiddleware } from './middleware/http';
 import { LoggerModule } from './logger/logger.module';
-import { OrmModule } from './orm/orm.module';
+import { OrmConfig } from './orm/ormconfig.module';
 // const { combine, timestamp, label, prettyPrint } = format;
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
@@ -32,7 +32,7 @@ import { OrmModule } from './orm/orm.module';
     ),
     UserinfoModule, // 用户信息处理模块
 
-     LoggerModule, OrmModule
+     LoggerModule, OrmConfig
 
   ],
   controllers: [AppController],

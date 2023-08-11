@@ -33,4 +33,4 @@ import { Logs } from '../userinfo/entities/logs.entity';
           }),
     ]
 })
-export class OrmModule {}
+export class OrmConfig {}
