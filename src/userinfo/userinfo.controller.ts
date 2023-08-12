@@ -47,7 +47,7 @@ export class UserinfoController {
     return this.userinfoService.findOne(username);
   }
 
-  @Patch(':id')
+  @Patch(':id')   // 修改数据   用户信息
   update(@Param('id') id: string, @Body() updateUsersDto: UpdateUsersDto) {
     return this.userinfoService.update(+id, updateUsersDto);
   }

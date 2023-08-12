@@ -45,8 +45,9 @@ export class UserinfoService {
   }
 
   async update(id: number, updateUsersDto: UpdateUsersDto) {
+    //  貌似应该先通过token确认用户信息，对比id一致，再进行下一步
     let res = await this.usersRepository.update(id, updateUsersDto)
-    console.log("🚀 ~ file: demo.service.ts:35 ~ DemoService ~ update ~ res:", res)
+    // console.log("🚀 ~ file: demo.service.ts:35 ~ DemoService ~ update ~ res:", res)
     return  res.affected ? '修改成功': '修改失败'
   }
 
