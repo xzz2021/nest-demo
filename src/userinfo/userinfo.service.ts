@@ -10,6 +10,8 @@ import { UpdateUsersDto } from './dto/update-users.dto';
 import { Logs } from './entities/logs.entity';
 import { joinQueryInfo } from './dto/join-query-info.dto';
 import { confitionUtils } from 'src/utils/db.auxiliary';
+import { ProfileDto } from './dto/profile.dto';
+import { Profile } from './entities/profile.entity';
 
 
 
@@ -20,6 +22,8 @@ export class UserinfoService {
     Repository<Users>,
     @InjectRepository(Logs) private readonly logsRepository:  //  调用数据库必须进行注入
     Repository<Logs>,
+    @InjectRepository(Profile) private readonly profileRepository:  //  调用数据库必须进行注入
+    Repository<Profile>,
   ){}
 
   
@@ -48,6 +52,24 @@ export class UserinfoService {
     return this.usersRepository.findOne({ where: {id} })
   }
 
+  async addprofile(profileDto: ProfileDto) {
+
+    const profileSave = await this.profileRepository.create(profileDto)
+    let res = await  this.profileRepository.save(profileSave)
+    console.log("🚀 ~ file: userinfo.service.ts:59 ~ UserinfoService ~ addprofile ~ res:", res)
+    // return  res.affected ? '修改成功': '修改失败'
+
+  }
+
+
+  async getprofile(id: number){  //  https://orkhan.gitbook.io/typeorm/docs/select-query-builder
+    return this.logsRepository.createQueryBuilder('profile')
+            // .select('profile')
+            .select('*')
+            .where('userId = :id', {id})
+            .getMany()
+  }
+
   async update(id: number, updateUsersDto: UpdateUsersDto) {
     //  貌似应该先通过token确认用户信息，对比id一致，再进行下一步
     let res = await this.usersRepository.update(id, updateUsersDto)
@@ -72,6 +94,9 @@ export class UserinfoService {
     })
   }
 
+  
+
+
   async findLogsByGroup(id: number){  //  https://orkhan.gitbook.io/typeorm/docs/select-query-builder
     return this.logsRepository.createQueryBuilder('logs')
             .select('logs.status')
@@ -86,7 +111,7 @@ export class UserinfoService {
 
     const capacity = limit || 10
     const skip = ((capacity || 1) - 1) * capacity
-    
+
     const queryBuilder = this.usersRepository.createQueryBuilder('users')
           .leftJoinAndSelect('users.profile', 'profile')
           .leftJoinAndSelect('users.role', 'role')

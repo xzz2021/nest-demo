@@ -14,12 +14,9 @@ export class UsersRole {
     @Column()
     roleid: number;
 
-    @Column()
-    userid: number;
-
     @ManyToOne(() => Users)   // 关联表单   联合查询可以使用querybuilder进行筛选条件查询
     @JoinColumn()
-    userrole: Users;
+    user: Users;
 
     
     

@@ -20,10 +20,10 @@ export class Users {
     @Column()
     password: string;
 
-
+   //  第一个参数是关联的类， 也即被关联的表格名
     @OneToOne(() => Profile)   //关联表单，需要在关联的两张表的entity里都声明OneToOne， 实现映射
     profile: Profile;
-
+    // 第二个参数  创建双向关系
     @OneToMany(() => Logs, logs => logs.user)
     logs: Logs[];
 }

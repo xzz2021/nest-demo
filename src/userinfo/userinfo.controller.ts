@@ -6,6 +6,7 @@ import { UpdateUsersDto } from './dto/update-users.dto';
 import { Logger } from '@nestjs/common';
 
 import { joinQueryInfo } from './dto/join-query-info.dto'
+import { ProfileDto } from './dto/profile.dto';
 
 
 // @Controller({host: 'http://localhost：3000'})  // 可以控制请求来源
@@ -47,6 +48,17 @@ export class UserinfoController {
   @Post('/find')
   findOne(@Body('username') username: string) {
     return this.userinfoService.findOne(username);
+  }
+
+  @Post('addprofile')   // 修改数据   用户信息
+  addprofile(@Body() profileDto: ProfileDto) {
+    return this.userinfoService.addprofile(profileDto);
+  }
+
+  @Get('/getprofile/:id')
+  getprofile(@Param('id', ParseIntPipe) id: number) {
+
+    return this.userinfoService.getprofile(id);
   }
 
   @Patch(':id')   // 修改数据   用户信息
