@@ -5,6 +5,9 @@ import { UpdateUsersDto } from './dto/update-users.dto';
 
 import { Logger } from '@nestjs/common';
 
+import { joinQueryInfo } from './dto/join-query-info.dto'
+
+
 // @Controller({host: 'http://localhost：3000'})  // 可以控制请求来源
 // @UseFilters(new HttpExceptionFilter()) // 对整个控制器 进行  异常错误过滤处理
 @Controller('userinfo')
@@ -22,7 +25,6 @@ export class UserinfoController {
   //  body后的dto定义传递过来的请求体数据格式
   // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
   create(@Body() createUsersoDto: CreateUsersDto) {  
-
     return this.userinfoService.create(createUsersoDto);
   }
 
@@ -89,6 +91,12 @@ export class UserinfoController {
   test(){
     console.log("🚀 ~ file: userinfo.controller.ts:58 ~ UserinfoController ~ @All ~ All:")
     
+  }
+
+  @Get('joinquery')  // 联合查询
+  joinQuery(@Query() joinQueryParams: joinQueryInfo) {
+
+    this.userinfoService.joinQuery(joinQueryParams)
   }
 
 }

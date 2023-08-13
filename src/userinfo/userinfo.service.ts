@@ -8,6 +8,10 @@ import { Repository } from 'typeorm';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 import { Logs } from './entities/logs.entity';
+import { joinQueryInfo } from './dto/join-query-info.dto';
+import { confitionUtils } from 'src/utils/db.auxiliary';
+
+
 
 @Injectable()
 export class UserinfoService {
@@ -74,5 +78,25 @@ export class UserinfoService {
             .select('*')
             .where('userId = :id', {id})
             .getRawMany()
+  }
+
+
+  joinQuery(joinQueryParams: joinQueryInfo){
+    const { page, limit, username, role, gender  } = joinQueryParams
+
+    const capacity = limit || 10
+    const skip = ((capacity || 1) - 1) * capacity
+    
+    const queryBuilder = this.usersRepository.createQueryBuilder('users')
+          .leftJoinAndSelect('users.profile', 'profile')
+          .leftJoinAndSelect('users.role', 'role')
+          let obj = {
+            'user.username': username,
+            'profile.gender': gender,
+            'roles.id': role,
+          }
+        return  confitionUtils(queryBuilder, obj)
+
+
   }
 }
