@@ -54,20 +54,39 @@ export class UserinfoService {
 
   async addprofile(profileDto: ProfileDto) {
 
-    const profileSave = await this.profileRepository.create(profileDto)
-    let res = await  this.profileRepository.save(profileSave)
-    console.log("🚀 ~ file: userinfo.service.ts:59 ~ UserinfoService ~ addprofile ~ res:", res)
+    let { userId, ...profile } = profileDto
+    // 先构造生成profile的class类数据
+    const profileSave = await this.profileRepository.create(profile)
+    // 先进行profile表的存储
+    await  this.profileRepository.save(profileSave)
+    //  获取当前用户的信息
+    const currentUser= await this.usersRepository.findOne({ where: {id: userId} })
+    //  把当前profile表存储的信息  赋值给  Users表  进行关联存储
+    currentUser.profile = profileSave
+    await  this.usersRepository.save(currentUser)
+
+     return '保存成功！'
+    // userinfo.profile = profileSave
     // return  res.affected ? '修改成功': '修改失败'
 
   }
 
 
   async getprofile(id: number){  //  https://orkhan.gitbook.io/typeorm/docs/select-query-builder
-    return this.logsRepository.createQueryBuilder('profile')
-            // .select('profile')
-            .select('*')
-            .where('userId = :id', {id})
-            .getMany()
+    // return this.usersRepository.createQueryBuilder('user')
+    //         // .select('profile')
+    //         .where('id = :id', {id})
+    //         .leftJoinAndSelect('user.profile', 'profile')
+    //         .getMany()
+
+            return  this.usersRepository.find({
+              where: {
+                id
+              },
+              relations: {
+                  profile: true,
+              },
+          })
   }
 
   async update(id: number, updateUsersDto: UpdateUsersDto) {
