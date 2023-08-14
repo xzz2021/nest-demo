@@ -22,10 +22,11 @@ export class UserinfoController {
     ) {
   }
 
-  @Post()  // 新增表格数据接口
+  @Post('login')  // 新增表格数据接口
   //  body后的dto定义传递过来的请求体数据格式
   // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
   create(@Body() createUsersoDto: CreateUsersDto) {  
+    
     return this.userinfoService.create(createUsersoDto);
   }
 

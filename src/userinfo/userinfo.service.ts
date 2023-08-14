@@ -28,9 +28,11 @@ export class UserinfoService {
 
   
   // 创建数据的post请求会走向这里
-  create(createUsersDto: CreateUsersDto) {
+  async create(createUsersDto: CreateUsersDto) {
+    // return 'test'
     const userSave = this.usersRepository.create(createUsersDto)
-    return this.usersRepository.save(userSave)
+    let res =  await this.usersRepository.save(userSave)
+    return res
   }
 
 

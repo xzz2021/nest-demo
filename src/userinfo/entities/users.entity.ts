@@ -14,13 +14,14 @@ export class Users {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column( { unique: true })  // 设定当前键为唯一值
     username: string;
 
     @Column()
     password: string;
 
     //ontoone 只需要在被关联的副表声明即可
+    //  oneToOne 定义的位置 会在当前表格生成关联字段
 
    //  第一个参数是关联的类， 也即被关联的表格名
     @OneToOne(() => Profile)   //关联表单，需要在关联的两张表的entity里都声明OneToOne， 实现映射
