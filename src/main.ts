@@ -6,6 +6,7 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { RequestInterceptor } from './interceptor/request';
 import { ResponseInterceptor } from './interceptor/response';
 import { AllExceptionFilter } from './filter/all-exception';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,12 @@ async function bootstrap() {
   
   app.useGlobalInterceptors(new RequestInterceptor())  //  对全局的接口 请求 进行日志记录
   app.useGlobalInterceptors(new ResponseInterceptor())  //  对全局的接口 响应 进行日志记录
+
+  //  全局数据格式校验管道
+  app.useGlobalPipes(new ValidationPipe(
+    // 去除多余字段
+    // whitelist: true,
+  ));
   await app.listen(3000);
 }
 bootstrap();

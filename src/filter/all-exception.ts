@@ -20,10 +20,15 @@ export class AllExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const httpStatus = exception instanceof HttpException  ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     let  errMsg = exception?.message || HttpException.name
+    console.log("🚀 ~ file: all-exception.ts:23 ~ exception:", exception)
 
     if( exception?.errno == 1062){
       // 这样拦截有缺点， 每次请求错误表格id会自增一位  // 
       errMsg = `传入的值与表格已有数据重复，具体原因: ${exception.sqlMessage}`
+    }
+
+    if( httpStatus == 400){ // 过滤ValidationPipe错误
+      errMsg = `数据格式validate校验出错,错误信息: ${exception.response.message}`
     }
 
     let resData = {
@@ -32,7 +37,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       path: request.url,
       error: errMsg
     }
-    Logger.error(`请求响应数据出现意外错误, 详细信息: ${JSON.stringify(resData) }`)
+    Logger.error(`请求响应数据出现意外错误, 错误信息: ${JSON.stringify(resData) }`)
 
     httpAdapter.reply(response, resData, httpStatus);
     // response

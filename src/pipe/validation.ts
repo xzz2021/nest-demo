@@ -1,6 +1,7 @@
 
 // pipe管道函数
-// 其实用  dto  类型校验也是一样的   接收到数据交给路由处理前的函数，   主要用于传递数据，校验数据  
+// 其实用  dto  类型校验也是一样的   接收到数据交给路由处理前的函数，   主要用于传递数据，校验数据, 转换数据  
+// 可以直接在@Body()里注入使用
 
 
 
@@ -9,7 +10,7 @@
   @Injectable()  
   export class ValidationPipe implements PipeTransform {  
         transform(value: any, metadata: ArgumentMetadata) {  
-          return value;  
+          return value;   
         }  
   }  
 

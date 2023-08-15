@@ -36,7 +36,8 @@ export class UserinfoController {
   //  body后的dto定义传递过来的请求体数据格式
   // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
   create(@Body() createUsersDto: CreateUsersDto) {  
-    
+    console.log("🚀 ~ file: userinfo.controller.ts:39 ~ UserinfoController ~ create ~ createUsersDto:", createUsersDto)
+    return
     return this.userinfoService.create(createUsersDto);
   }
 
