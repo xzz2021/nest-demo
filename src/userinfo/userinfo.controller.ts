@@ -49,7 +49,15 @@ export class UserinfoController {
   @Post('/find')
   findOne(@Body('username') username: string) {
     return this.userinfoService.findOne(username);
+
+
   }
+  
+  @Post('updateprofile')   // 更新数据   用户信息
+  updateprofile(@Body() profileDto: ProfileDto) {
+  return this.userinfoService.updateprofile(profileDto);
+}
+
 
   @Post('addprofile')   // 修改数据   用户信息
   addprofile(@Body() profileDto: ProfileDto) {

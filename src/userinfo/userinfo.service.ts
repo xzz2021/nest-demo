@@ -73,6 +73,36 @@ export class UserinfoService {
 
   }
 
+  // 更新带联合数据的表  11111 失败
+  // async updateprofile(profileDto: ProfileDto) {
+  //   let { userId, ...profile } = profileDto
+  //   // 先根据id查到User表的用户信息
+  //   const currentUser = await this.findID(userId)
+  //   //  使用merge进行联合更新
+  //   const newUser = this.usersRepository.merge(currentUser, profile as Partial<Users>)
+  //   return this.usersRepository.save(newUser)
+  // }
+
+    // 更新带联合数据的表
+    async updateprofile(profileDto: ProfileDto) {
+      let { userId } = profileDto
+      // 先根据userid查到User表profileId
+      const profileInfo = await this.usersRepository.find({
+        where: {id: userId},
+        join: { 
+          alias: 'user',
+          leftJoinAndSelect: {
+            pro: 'user.profile.id',
+            // profileId: 'user.profileId'
+        }
+      }
+      })
+      console.log("🚀 ~ file: userinfo.service.ts:100 ~ UserinfoService ~ updateprofile ~ profileInfo:", profileInfo)
+      // const profileId = profileInfo.profile.id
+
+      return 'test'
+    }
+
 
   async getprofile(id: number){  //  https://orkhan.gitbook.io/typeorm/docs/select-query-builder
     // return this.usersRepository.createQueryBuilder('user')
