@@ -175,4 +175,10 @@ export class UserinfoService {
 
 
   }
+
+  // 通过用户名查询用户信息
+  findByUsername(userinfo: CreateUsersDto) {
+    return this.usersRepository.findOne({ where: {username: userinfo.username} })
+  }
+
 }

@@ -10,6 +10,7 @@ import { UserinfoModule } from './userinfo/userinfo.module';
 import { HttpMiddleware } from './middleware/http';
 import { LoggerModule } from './logger/logger.module';
 import { OrmConfig } from './orm/ormconfig.module';
+import { AuthModule } from './auth/auth.module';
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
 // @Global()  //  使此app模块引入的依赖能够作为全局依赖应用到所有子模块
@@ -27,7 +28,9 @@ import { OrmConfig } from './orm/ormconfig.module';
 
     LoggerModule,   //打印日志模块
      
-    OrmConfig,  //数据库配置模块
+    OrmConfig,   //
+    
+    AuthModule,
 
   ],
   controllers: [AppController],
