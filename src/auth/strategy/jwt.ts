@@ -13,7 +13,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
   async validate(payload: any) {
-    console.log("🚀 ~ file: jwt.ts:16 ~ JwtStrategy ~ validate ~ payload:", payload)
+    // console.log("🚀 ~ file: jwt.ts:16 ~ JwtStrategy ~ validate ~ payload:", payload)
+    //此处return的信息 在被装饰接口里使用@Req  会自动生成在req.user中 供使用
     return { userId: payload.sub, username: payload.username };
   }
 }

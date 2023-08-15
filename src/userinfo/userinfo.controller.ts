@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,  All, HttpCode, Redirect, Query, ParseIntPipe, UseGuards, } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,  All, HttpCode, Redirect, Query, ParseIntPipe, UseGuards, Req, } from '@nestjs/common';
 import { UserinfoService } from './userinfo.service';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
@@ -26,7 +26,8 @@ export class UserinfoController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  signIn(@Body() userinfo: any){
+  signIn(@Body() userinfo: any, @Req() req: Request){
+    // 经过守卫返回的信息会自动放在req.user中
     // console.log("🚀 ~ file: userinfo.controller.ts:30 ~ UserinfoController ~ signIn ~ userinfo:", userinfo)
     // 如果上面守卫校验通过了,则会执行下面的登录返回token时间
     return this.authService.login(userinfo)
@@ -35,9 +36,7 @@ export class UserinfoController {
   @Post('register')  // 新增表格数据接口
   //  body后的dto定义传递过来的请求体数据格式
   // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
-  create(@Body() createUsersDto: CreateUsersDto) {  
-    console.log("🚀 ~ file: userinfo.controller.ts:39 ~ UserinfoController ~ create ~ createUsersDto:", createUsersDto)
-    return
+  create(@Body() createUsersDto: CreateUsersDto) {
     return this.userinfoService.create(createUsersDto);
   }
 
@@ -77,7 +76,7 @@ export class UserinfoController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/getprofile/:id')
-  getprofile(@Param('id', ParseIntPipe) id: number) {
+  getprofile(@Param('id', ParseIntPipe) id: number, @Req() req: Request) {
   // console.log("🚀 ~ file: userinfo.controller.ts:80 ~ UserinfoController ~ getprofile ~ id:", id)
 
     return this.userinfoService.getprofile(id);
