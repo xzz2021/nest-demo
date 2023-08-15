@@ -59,8 +59,11 @@ export class UserinfoController {
   @Post('/find')
   findOne(@Body('username') username: string) {
     return this.userinfoService.findOne(username);
+  }
 
-
+  @Post('/findrole')
+  findRole(@Body('username') username: string) {
+    return this.userinfoService.findRole(username);
   }
   
   @Post('updateprofile')   // 更新数据   用户信息

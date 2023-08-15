@@ -8,6 +8,7 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Profile } from './profile.entity';
 import { Logs } from './logs.entity';
+import { UsersRole } from './usersrole.entity';
 
 @Entity()
 export class Users {
@@ -33,4 +34,8 @@ export class Users {
     // 第二个参数  创建双向关系
     @OneToMany(() => Logs, logs => logs.user)
     logs: Logs[];
+
+    @OneToMany(() => UsersRole, usersrole => usersrole.user, {cascade: true,})
+    @JoinColumn()
+    myrole: UsersRole[];
 }

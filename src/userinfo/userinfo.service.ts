@@ -12,6 +12,7 @@ import { joinQueryInfo } from './dto/join-query-info.dto';
 import { confitionUtils } from 'src/utils/db.auxiliary';
 import { ProfileDto } from './dto/profile.dto';
 import { Profile } from './entities/profile.entity';
+import { Roles } from './entities/roles.entity';
 
 
 
@@ -24,6 +25,8 @@ export class UserinfoService {
     Repository<Logs>,
     @InjectRepository(Profile) private readonly profileRepository:  //  调用数据库必须进行注入
     Repository<Profile>,
+    @InjectRepository(Roles) private readonly rolesRepository:  //  调用数据库必须进行注入
+    Repository<Roles>,
   ){}
 
   
@@ -181,4 +184,39 @@ export class UserinfoService {
     return this.usersRepository.findOne({ where: {username: userinfo.username} })
   }
 
+
+  async findRole(username){
+    // 拿到role数组
+    let curuser: any = await  this.usersRepository.find(
+      {
+        where: {username},
+        join: {
+        alias: "users",
+        leftJoinAndSelect: {
+          myrole: "users.myrole"
+        }
+    }}
+      )
+      // return curuser
+      let roleArray = []
+      Object.values(curuser[0].myrole).forEach(item  => {
+        roleArray.push(item['roleid'])
+      })
+
+      // return roleArray
+      let newroleArray = []
+
+
+      for( const item of roleArray){
+        let rolename = await  this.rolesRepository.find( { where: {id: item} })
+          newroleArray.push(rolename[0]['role'])
+        
+      }
+
+      
+         return newroleArray
+
+
+
+  }
 }
