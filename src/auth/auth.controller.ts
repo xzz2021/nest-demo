@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { LocalAuthGuard } from 'src/guard/auth.guard';
 import { AuthService } from './auth.service';
 import { CreateUsersDto } from 'src/userinfo/dto/create-users.dto';
@@ -19,7 +19,8 @@ export class AuthController {
       return this.authService.login(userinfo)
     }
 
-
+    // 使用nest内置的序列化拦截器,, 可以将返回数据的字段 进行过滤排除等(在数据的entity文件里定义)
+    @UseInterceptors(ClassSerializerInterceptor)
     @Post('register')  // 新增表格数据接口
     //  body后的dto定义传递过来的请求体数据格式
     // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除

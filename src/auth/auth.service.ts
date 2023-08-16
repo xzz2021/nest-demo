@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserinfoService } from 'src/userinfo/userinfo.service';
 
 import * as bcrypt from 'bcrypt';
+import { forbidden } from 'joi';
 
 @Injectable()
 export class AuthService {
@@ -14,8 +15,15 @@ export class AuthService {
     async validateUser(username: string, password: string ): Promise<any> {
 
       const user = await this.userinfoService.findOne(username)
-      const isMatch = await bcrypt.compare(password, user.password);
 
+      if(!user){
+        throw new ForbiddenException('用户不存在')
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+ 
+      if(!isMatch) throw new ForbiddenException('用户名或密码错误')
+      
       if (user && isMatch) {
           const { password, ...result } = user;
           return result;
@@ -26,6 +34,7 @@ export class AuthService {
       async login(userinfo) {
         const payload = { username: userinfo.username, sub: 'any msg' };
         return {
+          userinfo,
           access_token: this.jwtService.sign(payload),
         };
       }

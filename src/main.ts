@@ -22,8 +22,8 @@ async function bootstrap() {
 
   //  全局数据格式校验管道
   app.useGlobalPipes(new ValidationPipe(
-    // 去除多余字段
-    // whitelist: true,
+    // 保留dto里定义过的数据字段, 去除前端传递过来的其他字段, 防范恶意代码
+    // {whitelist: true,   }
   ));
   await app.listen(3000);
 }

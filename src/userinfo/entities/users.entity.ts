@@ -9,6 +9,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import { Profile } from './profile.entity';
 import { Logs } from './logs.entity';
 import { UsersRole } from './usersrole.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Users {
@@ -19,6 +20,7 @@ export class Users {
     username: string;
 
     @Column()
+    @Exclude()  // 转换数据, 排除此字段
     password: string;
 
     //ontoone 只需要在被关联的副表声明即可
