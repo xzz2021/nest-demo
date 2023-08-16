@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete,  All, Redirect, Query, ParseIntPipe, UseGuards, Req, } from '@nestjs/common';
 import { UserinfoService } from './userinfo.service';
-import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 
 

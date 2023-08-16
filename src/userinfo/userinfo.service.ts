@@ -14,6 +14,7 @@ import { ProfileDto } from './dto/profile.dto';
 import { Profile } from './entities/profile.entity';
 import { Roles } from './entities/roles.entity';
 
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserinfoService {
@@ -31,10 +32,16 @@ export class UserinfoService {
   
   // 创建数据的post请求会走向这里
   async create(createUsersDto: CreateUsersDto) {
-    // return 'test'
-    const
+
+    const saltOrRounds = 10; // 数值越大速度越慢
+
+    createUsersDto.password = await bcrypt.hash(createUsersDto.password, saltOrRounds);
+
+    // const salt = await bcrypt.genSalt() // 用于生成salt
+    
     const userSave = this.usersRepository.create(createUsersDto)
     let res =  await this.usersRepository.save(userSave)
+
     return res
   }
 
