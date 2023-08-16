@@ -15,7 +15,6 @@ import { Profile } from './entities/profile.entity';
 import { Roles } from './entities/roles.entity';
 
 
-
 @Injectable()
 export class UserinfoService {
   constructor(
@@ -33,6 +32,7 @@ export class UserinfoService {
   // 创建数据的post请求会走向这里
   async create(createUsersDto: CreateUsersDto) {
     // return 'test'
+    const
     const userSave = this.usersRepository.create(createUsersDto)
     let res =  await this.usersRepository.save(userSave)
     return res
@@ -49,7 +49,7 @@ export class UserinfoService {
 
   async findOne(username: string) {
     let res = await this.usersRepository.findOne({ where: {username} })
-    return res || '未找到此用户信息'
+    return res 
   }
 
 

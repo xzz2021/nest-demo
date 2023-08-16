@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
 import { Users } from './entities/users.entity';
 import { Logs } from './entities/logs.entity';
-import { AuthModule } from 'src/auth/auth.module';
 import { UsersRole } from './entities/usersrole.entity';
 import { Roles } from './entities/roles.entity';
 
@@ -13,7 +12,7 @@ import { Roles } from './entities/roles.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Users, Profile, Logs, UsersRole, Roles]),
-    AuthModule
+    // AuthModule
     
 
   ],  //子模块调用数据库必须进行引入表单

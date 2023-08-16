@@ -20,7 +20,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const httpStatus = exception instanceof HttpException  ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     let  errMsg = exception?.message || HttpException.name
-    console.log("🚀 ~ file: all-exception.ts:23 ~ exception:", exception)
+    // console.log("🚀 ~ file: all-exception.ts:23 ~ exception:", exception)
 
     if( exception?.errno == 1062){
       // 这样拦截有缺点， 每次请求错误表格id会自增一位  // 
