@@ -23,6 +23,9 @@ export class Users {
     @Exclude()  // 转换数据, 排除此字段
     password: string;
 
+    @Column()  
+    createtime: string;
+
     //ontoone 只需要在被关联的副表声明即可
     //  oneToOne 定义的位置 会在当前表格生成关联字段
 
