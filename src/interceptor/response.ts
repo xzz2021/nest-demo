@@ -16,13 +16,15 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
         const start = Date.now(); // 请求开始时间
         const host = context.switchToHttp();
         const response: any = host.getResponse();  //  这里可以得到响应的绝大部分信息
+        
         // console.log("🚀 ~ file: response.ts:16 ~ ResponseInterceptor ~ intercept ~ response:", response)
+        const statusCode = response.statusCode;
         return next
             .handle()
             .pipe(
                 map((data) =>  {  // 这里可以统一返回数据的模板格式
+                    data.statusCode = statusCode
                     return data
-                // console.log("🚀 ~ file: response.ts:21 ~ ResponseInterceptor ~ map ~ data:", data)
 
                     // Logger.log(`响应数据测试`)   //貌似理论上不需要响应日志 ，，，请求里已有记录，，，，而响应失败的话在错误过滤器里会打印失败日志
                 }

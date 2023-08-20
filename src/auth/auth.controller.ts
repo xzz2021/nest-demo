@@ -4,6 +4,12 @@ import { AuthService } from './auth.service';
 import { CreateUsersDto } from 'src/userinfo/dto/create-users.dto';
 import { UserinfoService } from 'src/userinfo/userinfo.service';
 
+// interface CreateUsers{
+//   usernames: string;
+//   passwords: string;
+//   createtime: string;
+// }
+
 @Controller('auth')
 export class AuthController {
     constructor(
@@ -24,7 +30,8 @@ export class AuthController {
     @Post('register')  // 新增表格数据接口
     //  body后的dto定义传递过来的请求体数据格式
     // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
-    create(@Body() createUsersDto: CreateUsersDto) {
+    create(@Body() createUsersDto: any) {
+      createUsersDto.createtime = new Date().toLocaleString();
       return this.userinfoService.create(createUsersDto);
     }
 }

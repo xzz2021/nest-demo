@@ -10,6 +10,8 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // 设置允许跨域
+  app.enableCors();
   // app.setGlobalPrefix('全局接口前缀')
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER))  //  全局替换日志系统
 
