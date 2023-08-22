@@ -226,4 +226,11 @@ export class UserinfoService {
 
 
   }
+
+
+  getInfo(userinfo){
+
+    return  userinfo
+
+  }
 }

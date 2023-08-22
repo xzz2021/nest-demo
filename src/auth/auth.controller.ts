@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { LocalAuthGuard } from 'src/guard/auth.guard';
 import { AuthService } from './auth.service';
 import { CreateUsersDto } from 'src/userinfo/dto/create-users.dto';
@@ -34,4 +34,7 @@ export class AuthController {
       createUsersDto.createtime = new Date().toLocaleString();
       return this.userinfoService.create(createUsersDto);
     }
+
+
+  
 }

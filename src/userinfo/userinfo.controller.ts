@@ -118,4 +118,13 @@ export class UserinfoController {
     this.userinfoService.joinQuery(joinQueryParams)
   }
 
+  @UseGuards(JwtAuthGuard)
+    @Get('getinfo')
+    getInfo(@Req() req: any){
+      // token解析出来的数据会在@Req中返回
+      let userinfo = req.user
+      return this.userinfoService.getInfo(userinfo)
+
+    }
+
 }

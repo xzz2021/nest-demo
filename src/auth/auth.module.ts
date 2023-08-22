@@ -13,7 +13,7 @@ import { UserinfoModule } from 'src/userinfo/userinfo.module';
     PassportModule,
     JwtModule.register({
       secret: 'TEMPsecret',
-      signOptions: { expiresIn: '120s' }
+      signOptions: { expiresIn: '1200s' }
     })
   ], //
   providers: [AuthService, LocalStrategy, JwtStrategy],

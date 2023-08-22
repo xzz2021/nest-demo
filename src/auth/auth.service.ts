@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import { UserinfoService } from 'src/userinfo/userinfo.service';
 
 import * as bcrypt from 'bcrypt';
-import { forbidden } from 'joi';
 
 @Injectable()
 export class AuthService {
@@ -40,5 +39,7 @@ export class AuthService {
           access_token: this.jwtService.sign(payload),
         };
       }
+
+     
 
 }
