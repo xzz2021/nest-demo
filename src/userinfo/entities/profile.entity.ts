@@ -15,7 +15,7 @@ export class Profile {
     gender: number;
 
     @Column()
-    photo: string;
+    age: string;
 
     @Column()
     address: string;

@@ -7,6 +7,7 @@ import { RequestInterceptor } from './interceptor/request';
 import { ResponseInterceptor } from './interceptor/response';
 import { AllExceptionFilter } from './filter/all-exception';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,6 +28,18 @@ async function bootstrap() {
     // 保留dto里定义过的数据字段, 去除前端传递过来的其他字段, 防范恶意代码
     // {whitelist: true,   }
   ));
+
+
+  // 引入自动生成接口文档的swagger
+  const config = new DocumentBuilder()
+    .setTitle('Cats example')
+    .setDescription('The cats API description')
+    .setVersion('1.0')
+    .addTag('cats')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
   await app.listen(3000);
 }
 bootstrap();

@@ -18,12 +18,8 @@ export class AppController {
 
   @Get()
   getHello(@Req() req: Request, @Ip() ippp: string) {
-    // this.logger.warn( {message:'==========='})
-    // this.logger.warn(req)
-
-    // this.logger.warn(req.ip)
-    // this.logger.warn(ippp)
-    // return this.userinfoService.findAll()
+    console.log("🚀 ~ file: app.controller.ts:21 ~ AppController ~ getHello ~ ippp:", ippp)
+    
     return this.appService.getHello();
   }
 
