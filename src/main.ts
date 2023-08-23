@@ -11,6 +11,22 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // 当需要https证书认证时
+  // const httpsOptions = {
+  //   key: fs.readFileSync('./secrets/private-key.pem'),
+  //   cert: fs.readFileSync('./secrets/public-certificate.pem'),
+  // };
+  // const app = await NestFactory.create(AppModule, {
+  //   httpsOptions,
+  // });
+
+  //  设置全局路由前缀
+  // app.setGlobalPrefix('v1', { exclude: ['cats'] });
+
+  //  nest默认只解析json数据
+  // app.useBodyParser('text');
+
   // 设置允许跨域
   app.enableCors();
   // app.setGlobalPrefix('全局接口前缀')
