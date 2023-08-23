@@ -32,10 +32,10 @@ async function bootstrap() {
 
   // 引入自动生成接口文档的swagger
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('接口文档')
+    .setDescription('包含所有创建的接口')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('xzz2022')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

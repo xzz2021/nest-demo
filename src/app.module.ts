@@ -11,6 +11,8 @@ import { HttpMiddleware } from './middleware/http';
 import { LoggerModule } from './logger/logger.module';
 import { OrmConfig } from './orm/ormconfig.module';
 import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
 // @Global()  //  使此app模块引入的依赖能够作为全局依赖应用到所有子模块
@@ -24,6 +26,19 @@ import { AuthModule } from './auth/auth.module';
         // validationSchema: Joi.object({ TESTPWD: Joi.string().default('defff')}),  //检验导入的ConfigModule全局变量类型是否合法
       }  
     ),
+
+    // 引入静态文件服务
+    ServeStaticModule.forRoot({
+      // 访问路径不需要目录名
+      rootPath: join(__dirname, '..', 'static'),
+      //  浏览器服务访问的前缀
+      serveRoot: '/xzz/',
+      //  未知功能
+      // renderPath: '/xzz/',
+
+    }),
+
+
     UserinfoModule, // 用户信息处理模块
 
     LoggerModule,   //打印日志模块
