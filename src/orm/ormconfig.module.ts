@@ -39,7 +39,10 @@ const fs = require('fs')
         
         // ttt()
         // ☆☆☆☆☆☆☆☆☆☆☆☆☆搞不懂????????竟然可以生效?????????☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-        let allEntities2 = [path.resolve(__dirname,'../userinfo/entities/*.entity.js')]
+        let allEntities2 = [path.resolve(__dirname,'../roles/*.entity.js')]
+        let allEntities3 = [path.resolve(__dirname,'../userinfo/*.entity.js')]
+        let allEntities4 = [path.resolve(__dirname,'../userinfo/entities/*.entity.js')]
+        let allEntities = allEntities2.concat(allEntities3).concat(allEntities4)
         // console.log("🚀 ~ file: ormconfig.module.ts:42 ~ allEntities2:", allEntities2)
 
 @Module({
@@ -56,7 +59,7 @@ const fs = require('fs')
               username: 'root',
               password: configService.get('DBPWD'),
               database: 'xzz222',
-              entities: allEntities2,
+              entities: allEntities,
               // [  // 定义生成表格
               //   Users,
               //   Profile,

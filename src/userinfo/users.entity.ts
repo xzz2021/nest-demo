@@ -5,11 +5,11 @@
 
 
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Profile } from './profile.entity';
-import { Logs } from './logs.entity';
-import { UsersRole } from './usersrole.entity';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Profile } from './entities/profile.entity';
+import { Logs } from './entities/logs.entity';
 import { Exclude } from 'class-transformer';
+import { Roles } from '../roles/roles.entity';
 
 @Entity()
 export class Users {
@@ -32,7 +32,7 @@ export class Users {
    //  第一个参数是关联的类， 也即被关联的表格名
    //  cascade 代表可以直接对关联表单进行操作
     @OneToOne(() => Profile, { cascade: true})   //关联表单，需要在关联的两张表的entity里都声明OneToOne， 实现映射
-    @JoinColumn()
+    @JoinColumn()   // 定义了JoinColumn  代表他是关联表的所有者
     profile: Profile;
 
 
@@ -40,7 +40,7 @@ export class Users {
     @OneToMany(() => Logs, logs => logs.user)
     logs: Logs[];
 
-    @OneToMany(() => UsersRole, usersrole => usersrole.user, {cascade: true,})
-    @JoinColumn()
-    myrole: UsersRole[];
+    @ManyToMany(() => Roles, role => role.name, { cascade: true})
+    @JoinTable()  // 因为是多对多   这里是要关联整张表格
+    role: Roles[];
 }

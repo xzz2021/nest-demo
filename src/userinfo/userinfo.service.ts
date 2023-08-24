@@ -3,7 +3,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './entities/users.entity';
+import { Users } from './users.entity';
 import { Repository } from 'typeorm';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
@@ -12,7 +12,7 @@ import { joinQueryInfo } from './dto/join-query-info.dto';
 import { confitionUtils } from 'src/utils/db.auxiliary';
 import { ProfileDto } from './dto/profile.dto';
 import { Profile } from './entities/profile.entity';
-import { Roles } from './entities/roles.entity';
+import { Roles } from '../roles/roles.entity';
 
 import * as bcrypt from 'bcrypt';
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,  All, Redirect, Query, ParseIntPipe, UseGuards, Req, } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Query, ParseIntPipe, UseGuards, Req, } from '@nestjs/common';
 import { UserinfoService } from './userinfo.service';
 import { UpdateUsersDto } from './dto/update-users.dto';
 
@@ -22,24 +22,12 @@ export class UserinfoController {
   }
   
 
-
-  @Get('testRedirect')  // 重定向接口  貌似可以作为迁移接口或测试接口使用
-  @Redirect('http://localhost:3000/userinfo/getlogs/3', 313)
-  testRedirect(@Query('version') version){      //  动态返回 重定向url
-    if (version && version == 'test') {
-      return { url: 'http://localhost:3000/userinfo/getlogs/1'};
-    }
-  }
-  
-
-
   @Get('/findProfile/:id')  //  联合查询，一对一表格联动，需要有关键索引，此处为userid
-
   findProfile(@Param('id') id: number,) {
     return this.userinfoService.findProfile(id);
   }
 
-  @Post('/find')
+  @Post('/findone')
   findOne(@Body('username') username: string) {
     return this.userinfoService.findOne(username);
   }
@@ -73,10 +61,10 @@ export class UserinfoController {
     return this.userinfoService.update(+id, updateUsersDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userinfoService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.userinfoService.remove(+id);
+  // }
 
 
   @Get('/getlogs/:id')  //  联合查询，一对一表格联动，需要有关键索引，此处为userid
@@ -106,11 +94,11 @@ export class UserinfoController {
   }
 
   //暂不清楚作用
-  @All()
-  test(){
-    console.log("🚀 ~ file: userinfo.controller.ts:58 ~ UserinfoController ~ @All ~ All:")
+  // @All()
+  // test(){
+  //   console.log("🚀 ~ file: userinfo.controller.ts:58 ~ UserinfoController ~ @All ~ All:")
     
-  }
+  // }
 
   @Get('joinquery')  // 联合查询
   joinQuery(@Query() joinQueryParams: joinQueryInfo) {

@@ -13,6 +13,7 @@ import { OrmConfig } from './orm/ormconfig.module';
 import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RolesModule } from './roles/roles.module';
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
 // @Global()  //  使此app模块引入的依赖能够作为全局依赖应用到所有子模块
@@ -45,7 +46,7 @@ import { join } from 'path';
      
     OrmConfig,   //
     
-    AuthModule,
+    AuthModule, RolesModule,
 
   ],
   controllers: [AppController],

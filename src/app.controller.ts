@@ -2,32 +2,29 @@
 
 //  app作为全局资源入口
 
-import { Controller, Get, Inject, Ip, LoggerService, Param, Req } from '@nestjs/common';
+import { Controller, Get, Inject, LoggerService, Param, Query, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-// import { UserinfoService } from './userinfo/userinfo.service';
-
-import { Request } from 'express';
+// import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 @Controller('app') // 默认空，代表路径127.0.0.1：3000
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    // private readonly userinfoService: UserinfoService,
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: LoggerService
+    // @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: LoggerService
     ) {}
 
-  @Get()
-  getHello(@Req() req: Request, @Ip() ippp: string) {
-    console.log("🚀 ~ file: app.controller.ts:21 ~ AppController ~ getHello ~ ippp:", ippp)
+
+
+
+    @Get('testRedirect')  // 重定向接口  貌似可以作为迁移接口或测试接口使用
+    @Redirect('http://localhost:3000/userinfo/getlogs/3', 313)
+    testRedirect(@Query('version') version){      //  动态返回 重定向url
+      if (version && version == 'test') {
+        return { url: 'http://localhost:3000/userinfo/getlogs/1'};
+      }
+    }
+
+
     
-    return this.appService.getHello();
-  }
-
-  @Get('string') // 定义请求方法及次级路径
-  getHello2(): string {
-    return this.appService.getHello2();
-  }
-
   @Get(':id') // 定义请求方法及次级路径 // 此处定义的变量是字符串，会与下级resource的controller冲突
  getHello3(@Param('id') id: string): any {
       let arr =[]
