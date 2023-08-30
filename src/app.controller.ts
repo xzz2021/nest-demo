@@ -2,7 +2,7 @@
 
 //  app作为全局资源入口
 
-import { ClassSerializerInterceptor, Controller, Get, Inject, LoggerService, Param, Query, Redirect, UseInterceptors } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, Param, Query, Redirect, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 // import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 

@@ -1,13 +1,12 @@
 //module相当于某一总逻辑接口的入口
 
-import { Global, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {  MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config'
 import { UserinfoModule } from './userinfo/userinfo.module';
 
-// import { format } from 'winston';
-import { HttpMiddleware } from './middleware/http';
+import { HttpMiddleware } from './allProcessor/middleware/http';
 import { LoggerModule } from './logger/logger.module';
 import { OrmConfig } from './orm/ormconfig.module';
 import { AuthModule } from './auth/auth.module';

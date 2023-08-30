@@ -1,5 +1,5 @@
 //  这里定义封装 一些 数据库 查询 辅助 函数 类
-
+//  或者其他抽离出来的 业务处理函数
 import { SelectQueryBuilder } from "typeorm";
 
 

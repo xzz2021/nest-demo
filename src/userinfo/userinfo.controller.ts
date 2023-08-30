@@ -5,7 +5,7 @@ import { UpdateUsersDto } from './dto/update-users.dto';
 
 import { joinQueryInfo } from './dto/join-query-info.dto'
 import { ProfileDto } from './dto/profile.dto';
-import { JwtAuthGuard } from 'src/guard/auth.guard';
+import { JwtAuthGuard } from 'src/allProcessor/guard/auth.guard';
 
 
 // @Controller({host: 'http://localhost：3000'})  // 可以控制请求来源

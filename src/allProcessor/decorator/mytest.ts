@@ -1,5 +1,5 @@
 import { UseInterceptors } from '@nestjs/common';
-import { SerializeInterceptor } from 'src/interceptor/serialize';
+import { SerializeInterceptor } from 'src/allProcessor/interceptor/serialize';
 
 //  当调用的装饰器比较复杂时, 可以在这里包裹 自定义 diy名字  方便使用
 

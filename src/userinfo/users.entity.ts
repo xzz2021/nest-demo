@@ -19,7 +19,7 @@ export class Users {
     username: string;
 
     @Column()
-    @Exclude()  // 转换数据, 排除此字段
+    @Exclude()  // 转换数据, 排除此字段  //  结合@UseInterceptors(ClassSerializerInterceptor) 使用
     password: string;
 
     @Column()  
