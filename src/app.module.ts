@@ -14,6 +14,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { RolesModule } from './roles/roles.module';
 import { UsersModule } from './users/users.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
 // @Global()  //  使此app模块引入的依赖能够作为全局依赖应用到所有子模块
@@ -39,6 +41,12 @@ import { UsersModule } from './users/users.module';
 
     }),
 
+    // 请求限流
+    ThrottlerModule.forRoot({
+      ttl: 60,  // 请求限制时间
+      limit: 10, // 请求限制次数
+    }),
+
 
     UserinfoModule, // 用户信息处理模块
 
@@ -50,7 +58,14 @@ import { UsersModule } from './users/users.module';
 
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // 添加全局  限流 守卫
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard
+    }
+    ],
   //  全局注入过滤器或其他组件
   // providers: [{ provide: APP_FILTER,useClass: HttpExceptionFilter }]
 
