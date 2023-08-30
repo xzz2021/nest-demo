@@ -2,9 +2,12 @@
 
 //  app作为全局资源入口
 
-import { Controller, Get, Inject, LoggerService, Param, Query, Redirect } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, Inject, LoggerService, Param, Query, Redirect, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 // import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+
+
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('app') // 默认空，代表路径127.0.0.1：3000
 export class AppController {
   constructor(

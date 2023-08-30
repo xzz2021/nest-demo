@@ -4,13 +4,12 @@ import { UserinfoController } from './userinfo.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
 import { Users } from './users.entity';
-import { Logs } from './entities/logs.entity';
 import { Roles } from '../roles/roles.entity';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Users, Profile, Logs, Roles]),
+    TypeOrmModule.forFeature([Users, Profile, Roles]),
     // AuthModule
     
 

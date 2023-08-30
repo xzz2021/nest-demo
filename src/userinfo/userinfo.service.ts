@@ -7,7 +7,6 @@ import { Users } from './users.entity';
 import { Repository } from 'typeorm';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
-import { Logs } from './entities/logs.entity';
 import { joinQueryInfo } from './dto/join-query-info.dto';
 import { confitionUtils } from 'src/utils/db.auxiliary';
 import { ProfileDto } from './dto/profile.dto';
@@ -21,8 +20,6 @@ export class UserinfoService {
   constructor(
     @InjectRepository(Users) private readonly usersRepository:  //  调用数据库必须进行注入
     Repository<Users>,
-    @InjectRepository(Logs) private readonly logsRepository:  //  调用数据库必须进行注入
-    Repository<Logs>,
     @InjectRepository(Profile) private readonly profileRepository:  //  调用数据库必须进行注入
     Repository<Profile>,
     @InjectRepository(Roles) private readonly rolesRepository:  //  调用数据库必须进行注入
@@ -47,11 +44,18 @@ export class UserinfoService {
 
 
   findProfile( id: number){   //关联表格profile查询，，提供关键索引userid，，，直接使用user表就可以获得profile表格的数据
-    return this.usersRepository.findOne({ where: { id } })
+    return this.usersRepository.findOne({ where: { id },relations: ['role'] })
   }
+  
 
-  findAll() {
-    return `This action returns all userinfo`;
+  // 返回所有用户
+  async findAll() {
+    const allUsers = await this.usersRepository.find({
+      relations:['role', 'profile']
+    })
+    return  allUsers
+    // console.log("🚀 ~ file: userinfo.service.ts:56 ~ UserinfoService ~ findAll ~ allUsers:", allUsers)
+    // return 'ceshi'
   }
 
   async findOne(username: string) {
@@ -143,28 +147,8 @@ export class UserinfoService {
     if(res.affected == 1) return `删除用户${id}成功！`;
     return '删除失败'
   }
-  async findLogsByGroup0(id: number){
-    const user = await this.findID(id)  // 通过id查找到用户信息
-    return this.logsRepository.find({
-        where: {
-          user
-        },
-        relations: {  // 此定义为是否附带返回当前用户信息  附带返回更多信息
-          user: !true,
-        }
-    })
-  }
-
-  
 
 
-  async findLogsByGroup(id: number){  //  https://orkhan.gitbook.io/typeorm/docs/select-query-builder
-    return this.logsRepository.createQueryBuilder('logs')
-            .select('logs.status')
-            .select('*')
-            .where('userId = :id', {id})
-            .getRawMany()
-  }
 
 
   joinQuery(joinQueryParams: joinQueryInfo){
@@ -219,14 +203,9 @@ export class UserinfoService {
           newroleArray.push(rolename[0]['role'])
         
       }
-
-      
          return newroleArray
 
-
-
   }
-
 
   getInfo(userinfo){
 

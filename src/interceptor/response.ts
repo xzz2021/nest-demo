@@ -1,5 +1,6 @@
 // 这里定义接口响应日志拦截器
 /*
+这里处理的是service最终return出去的数据
 https://docs.nestjs.com/interceptors#interceptors
 */
 import { Injectable,  NestInterceptor,  ExecutionContext, CallHandler, Logger } from '@nestjs/common';
@@ -23,7 +24,11 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
             .handle()
             .pipe(
                 map((data) =>  {  // 这里可以统一返回数据的模板格式
-                    data.statusCode = statusCode
+                    // 拦截无效
+                    // if(data?.password){
+                    //     let { password, ...rest } = data
+                    //     return rest
+                    // }
                     return data
 
                     // Logger.log(`响应数据测试`)   //貌似理论上不需要响应日志 ，，，请求里已有记录，，，，而响应失败的话在错误过滤器里会打印失败日志
