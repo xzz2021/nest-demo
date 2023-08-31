@@ -44,7 +44,7 @@ import { APP_GUARD } from '@nestjs/core';
     // 请求限流
     ThrottlerModule.forRoot({
       ttl: 60,  // 请求限制时间
-      limit: 10, // 请求限制次数
+      limit: 30, // 请求限制次数
     }),
 
 

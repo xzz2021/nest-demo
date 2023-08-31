@@ -4,12 +4,14 @@
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Users } from '../userinfo/users.entity';
+import { Exclude } from 'class-transformer';
 // import { UsersRole } from './usersrole.entity';
 
 
 @Entity()
 export class Roles {
     @PrimaryGeneratedColumn()
+    // @Exclude()
     id: number;
 
     @Column()

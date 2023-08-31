@@ -31,7 +31,7 @@ export class AuthController {
     //  body后的dto定义传递过来的请求体数据格式
     // 如果前端数据体传递了其他未在dto定义的数据，将会被自动剔除
     create(@Body() createUsersDto: any) {
-      createUsersDto.createtime = new Date().toLocaleString();
+      // createUsersDto.createtime = new Date().toLocaleString();
       return this.userinfoService.create(createUsersDto);
     }
 

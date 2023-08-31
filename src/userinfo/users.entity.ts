@@ -5,7 +5,7 @@
 
 
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Profile } from './entities/profile.entity';
 import { Exclude } from 'class-transformer';
 import { Roles } from '../roles/roles.entity';
@@ -22,7 +22,7 @@ export class Users {
     @Exclude()  // 转换数据, 排除此字段  //  结合@UseInterceptors(ClassSerializerInterceptor) 使用
     password: string;
 
-    @Column()  
+    @CreateDateColumn()
     createtime: string;
 
     //ontoone 只需要在被关联的副表声明即可
@@ -39,5 +39,5 @@ export class Users {
 
     @ManyToMany(() => Roles, role => role.name, { cascade: true})
     @JoinTable()  // 因为是多对多   这里是要关联整张表格
-    role: Roles[];
+    userrole: Roles[];
 }

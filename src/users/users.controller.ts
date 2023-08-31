@@ -9,7 +9,7 @@ export class UsersController {
 
   @Get()
   findAll() {
-    return this.userinfoService.findAll();
+    return this.userinfoService.findAll2();
   }
 
 

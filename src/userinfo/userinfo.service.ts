@@ -28,18 +28,27 @@ export class UserinfoService {
 
   
   // 创建数据的post请求会走向这里
-  async create(createUsersDto: CreateUsersDto) {
+  async create(createUsersDto: any) {
 
     const saltOrRounds = 10; // 数值越大速度越慢
 
     createUsersDto.password = await bcrypt.hash(createUsersDto.password, saltOrRounds);
 
     // const salt = await bcrypt.genSalt() // 用于生成salt
-    
-    const userSave = this.usersRepository.create(createUsersDto)
-    let res =  await this.usersRepository.save(userSave)
 
-    return res
+    
+    // 创建注册用户信息
+    const userSave:any = this.usersRepository.create(createUsersDto)
+
+    // 获取  普通用户 角色  数据库对应的   实例 
+    let curUserrole = await this.rolesRepository.findOne({where:{name: '普通用户'}})
+
+    // 给用户角色赋值  //  必须对应存入实例对象{}  否则没有映射 关系
+    userSave.userrole = [curUserrole]
+
+    //  存储新用户
+    return await this.usersRepository.save(userSave)
+
   }
 
 
@@ -51,11 +60,24 @@ export class UserinfoService {
   // 返回所有用户
   async findAll() {
     const allUsers = await this.usersRepository.find({
-      relations:['role', 'profile']
+      relations:['userrole', 'profile']
     })
     return  allUsers
-    // console.log("🚀 ~ file: userinfo.service.ts:56 ~ UserinfoService ~ findAll ~ allUsers:", allUsers)
-    // return 'ceshi'
+  }
+
+  // 返回所有用户
+  async findAll2() {
+    let time = new Date()
+    console.log("🚀 ~ file: userinfo.service.ts:71 ~ UserinfoService ~ findAll2 ~ time:", time)
+    const allUsers = await this.usersRepository
+    .createQueryBuilder('users')
+    .leftJoinAndSelect("users.profile", "profile")
+    .leftJoinAndSelect("users.userrole", "role")
+    .getMany()
+    
+    
+    return  allUsers
+
   }
 
   async findOne(username: string) {
