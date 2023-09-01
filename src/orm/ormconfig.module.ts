@@ -45,6 +45,9 @@ const fs = require('fs')
         let allEntities = allEntities2.concat(allEntities3).concat(allEntities4)
         // console.log("🚀 ~ file: ormconfig.module.ts:42 ~ allEntities2:", allEntities2)
 
+        // 如果需要配置服务器集群 主从
+        // 配置 replication即可
+
 @Module({
 
     imports: [
@@ -65,9 +68,11 @@ const fs = require('fs')
               //   Profile,
               //   Logs,
               // ],
-              synchronize: true,  // 同步本地的schema与数据库
-              timezone: "08:00", // 纠正时区偏差8小时
+              synchronize: true,  // 同步本地的schema与数据库   自动同步代码和数据库
+              // timezone: "08:00", // 纠正时区偏差8小时
+              timezone: "Z", //  
               logging: ['error'],  //日志记录类型  数据库操作记录
+              // dataStrings: ['DATE'], //??? 未知作用 强制日期类型    boolean | string[]-TIMESTAMP, DATETIME, DATE
               
             } as TypeOrmModuleOptions ),
           }),

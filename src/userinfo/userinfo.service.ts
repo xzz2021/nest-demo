@@ -46,7 +46,7 @@ export class UserinfoService {
     // 给用户角色赋值  //  必须对应存入实例对象{}  否则没有映射 关系
     userSave.userrole = [curUserrole]
 
-    //  存储新用户
+    //  存储新用户  //  使用save时,若保存的实体有id且存在于数据库,则会自动执行update,没有则insert
     return await this.usersRepository.save(userSave)
 
   }
