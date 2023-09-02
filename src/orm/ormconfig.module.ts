@@ -8,14 +8,17 @@ import { Module } from '@nestjs/common';
 import {  ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-// import { Users } from '../userinfo/entities/users.entity';
-// import { Profile } from '../userinfo/entities/profile.entity';
-// import { Logs } from '../userinfo/entities/logs.entity';
+import { Users } from '../userinfo/users.entity'
+import { Profile } from '../userinfo/entities/profile.entity';
+import { Roles } from '../roles/roles.entity';
+import { DataSource, DataSourceOptions } from 'typeorm';
+
+let allEntities = [Users, Profile, Roles ]
 
 
 
-const path = require('path')
-const fs = require('fs')
+// const path = require('path')
+// const fs = require('fs')
   // const DirPath = path.resolve(__dirname, '../userinfo/entities/')
   // var routesss =  fs.readdirSync(DirPath)
   // let entityFile = routesss.filter( (item => item.includes('.js')))
@@ -39,10 +42,10 @@ const fs = require('fs')
         
         // ttt()
         // ☆☆☆☆☆☆☆☆☆☆☆☆☆搞不懂????????竟然可以生效?????????☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-        let allEntities2 = [path.resolve(__dirname,'../roles/*.entity.js')]
-        let allEntities3 = [path.resolve(__dirname,'../userinfo/*.entity.js')]
-        let allEntities4 = [path.resolve(__dirname,'../userinfo/entities/*.entity.js')]
-        let allEntities = allEntities2.concat(allEntities3).concat(allEntities4)
+        // let allEntities2 = [path.resolve(__dirname,'../roles/*.entity.js')]
+        // let allEntities3 = [path.resolve(__dirname,'../userinfo/*.entity.js')]
+        // let allEntities4 = [path.resolve(__dirname,'../userinfo/entities/*.entity.js')]
+        // let allEntities = allEntities2.concat(allEntities3).concat(allEntities4)
         // console.log("🚀 ~ file: ormconfig.module.ts:42 ~ allEntities2:", allEntities2)
 
         // 如果需要配置服务器集群 主从
@@ -68,7 +71,8 @@ const fs = require('fs')
               //   Profile,
               //   Logs,
               // ],
-              synchronize: true,  // 同步本地的schema与数据库   自动同步代码和数据库
+              //此处定义为是否同步代码,,,,,,生产模式需关闭,  引入迁移模式
+              synchronize: false,  // 同步本地的schema与数据库   自动同步代码和数据库
               // timezone: "08:00", // 纠正时区偏差8小时
               timezone: "Z", //  
               logging: ['error'],  //日志记录类型  数据库操作记录
@@ -80,7 +84,39 @@ const fs = require('fs')
 })
 export class OrmConfig {}
 
+export default new DataSource ({
+  migrationsTableName: 'migrations',
+  type: 'mysql',
+  host: 'xzz2022.top',
+  port: 3306,
+  username: 'root',
+  password: 'zzzxxxccc',
+  database: 'xzz222',
+  entities: allEntities,
+  migrations: ['src/migrations/*{.ts,.js}'],
+  synchronize: false,
+  timezone: "Z", //  
+  logging: ['error'], 
 
+} as DataSourceOptions
+)
+
+// export default new DataSource ({
+//   migrationsTableName: 'migrations',
+//   type: 'mysql',
+//   host: 'xzz2022.top',
+//   port: 3306,
+//   username: 'root',
+//   password: 'zzzxxxccc',
+//   database: 'xzz222',
+//   entities: ['src/userinfo/users.entity.ts', 'src/userinfo/entities/profile.entity.ts', 'src/roles/roles.entity.ts'],
+//   migrations: ['src/migrations/*{.ts,.js}'],
+//   synchronize: false,  
+//   timezone: "Z", //  
+//   logging: ['error'], 
+
+// } as DataSourceOptions
+// )
 
 /**
  * 
