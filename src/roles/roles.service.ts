@@ -16,8 +16,11 @@ export class RolesService {
     return this.rolesRepository.save(role)
   }
 
-  findAll() {
-    return this.rolesRepository.find()
+  async findAll() {
+    return await this.rolesRepository.find()
+        //  const [ roles, sum]  = await this.rolesRepository.findAndCount()
+        //   return roles
+
   }
 
   findOne(id: number) {

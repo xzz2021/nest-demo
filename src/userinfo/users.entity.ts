@@ -54,6 +54,6 @@ export class Users {
     // 第二个参数  创建双向关系
 
     @ManyToMany(() => Roles, role => role.name, { cascade: true})  //如果设置 eagger: true 查询时会自动加载关联表信息  不需要配置relations
-    @JoinTable()  // 因为是多对多   这里是要关联整张表格
-    userrole: Relation<Roles[]>;  // ESM中   双向关系   定义relation 避免循环依赖
+    @JoinTable({name: 'user_role'})  // 因为是多对多   这里是要关联整张表格
+    role: Relation<Roles[]>;  // ESM中   双向关系   定义relation 避免循环依赖
 }

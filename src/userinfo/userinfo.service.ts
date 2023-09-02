@@ -44,10 +44,11 @@ export class UserinfoService {
     let curUserrole = await this.rolesRepository.findOne({where:{name: '普通用户'}})
 
     // 给用户角色赋值  //  必须对应存入实例对象{}  否则没有映射 关系
-    userSave.userrole = [curUserrole]
+    userSave.role = [curUserrole]
 
     //  存储新用户  //  使用save时,若保存的实体有id且存在于数据库,则会自动执行update,没有则insert
     return await this.usersRepository.save(userSave)
+    // return await this.usersRepository.insert([userSave1,userSave2,userSave3,userSave4])  //批量存储 插入
 
   }
 
@@ -60,20 +61,19 @@ export class UserinfoService {
   // 返回所有用户
   async findAll() {
     const allUsers = await this.usersRepository.find({
-      relations:['userrole', 'profile']
+      relations:['role', 'profile']
     })
     return  allUsers
   }
 
   // 返回所有用户
   async findAll2() {
-    let time = new Date()
-    console.log("🚀 ~ file: userinfo.service.ts:71 ~ UserinfoService ~ findAll2 ~ time:", time)
     const allUsers = await this.usersRepository
     .createQueryBuilder('users')
     .leftJoinAndSelect("users.profile", "profile")
-    .leftJoinAndSelect("users.userrole", "role")
+    .leftJoinAndSelect("users.role", "role")
     .getMany()
+
     
     
     return  allUsers
