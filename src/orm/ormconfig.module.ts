@@ -15,7 +15,8 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 let allEntities = [Users, Profile, Roles ]
 
-
+// 引入.env文件的变量合并到node环境中
+require('dotenv').config();
 
 // const path = require('path')
 // const fs = require('fs')
@@ -84,13 +85,15 @@ let allEntities = [Users, Profile, Roles ]
 })
 export class OrmConfig {}
 
+
+
 export default new DataSource ({
-  migrationsTableName: 'migrations',
+  // migrationsTableName: 'migrations',
   type: 'mysql',
-  host: 'xzz2022.top',
+  host: process.env.DBHOST,
   port: 3306,
   username: 'root',
-  password: 'zzzxxxccc',
+  password: process.env.DBPWD,
   database: 'xzz222',
   entities: allEntities,
   migrations: ['src/migrations/*{.ts,.js}'],

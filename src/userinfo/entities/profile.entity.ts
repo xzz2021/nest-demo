@@ -26,6 +26,9 @@ export class Profile {
     @Column()
     testn6: string;
 
+    @Column()
+    testn777: string;
+
     // @OneToOne(() => Users)   // 关联表单
     // @JoinColumn()
     // user: Users;  //  关联表单Users   连接点  字段是 此处定义的 user键加上  Users表里的自增id  最后是 userId
