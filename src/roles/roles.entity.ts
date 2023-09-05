@@ -3,7 +3,7 @@
 
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm'
-import { Users } from '../userinfo/users.entity';
+import { Users } from '../users/users.entity';
 import { Exclude } from 'class-transformer';
 // import { UsersRole } from './usersrole.entity';
 

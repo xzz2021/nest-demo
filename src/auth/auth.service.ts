@@ -14,7 +14,7 @@ export class AuthService {
 
     async validateUser(username: string, password: string ): Promise<any> {
 
-      const user = await this.userinfoService.findOne(username)
+      const user = await this.userinfoService.findByUsername(username)
 
       if(!user){
         throw new ForbiddenException('用户不存在')
@@ -25,17 +25,18 @@ export class AuthService {
       if(!isMatch) throw new ForbiddenException('用户名或密码错误')
       
       if (user && isMatch) {
-          const { password, ...result } = user;
-          return result;
+          const { username, password } = user;
+          return username;
         }
         return null;
       }
 
       async login(userinfo) {
-        const payload = { username: userinfo.username, sub: 'any msg' };
-        let { password, ...info} = userinfo
+        const user = await this.userinfoService.findOne(userinfo.username)
+        const { username, role } = user
+        const payload = { username, role };
+        //登录后只要返回token即可
         return {
-          info,
           access_token: this.jwtService.sign(payload),
         };
       }

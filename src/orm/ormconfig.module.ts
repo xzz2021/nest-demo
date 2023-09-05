@@ -8,8 +8,8 @@ import { Module } from '@nestjs/common';
 import {  ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import { Users } from '../userinfo/users.entity'
-import { Profile } from '../userinfo/entities/profile.entity';
+import { Users } from '../users/users.entity'
+import { Profile } from '../profiles/profile.entity';
 import { Roles } from '../roles/roles.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
@@ -73,7 +73,7 @@ require('dotenv').config();
               //   Logs,
               // ],
               //此处定义为是否同步代码,,,,,,生产模式需关闭,  引入迁移模式
-              synchronize: false,  // 同步本地的schema与数据库   自动同步代码和数据库
+              synchronize: !false,  // 同步本地的schema与数据库   自动同步代码和数据库
               // timezone: "08:00", // 纠正时区偏差8小时
               timezone: "Z", //  
               logging: ['error'],  //日志记录类型  数据库操作记录

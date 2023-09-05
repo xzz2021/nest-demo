@@ -7,7 +7,7 @@ import { UserinfoService } from 'src/userinfo/userinfo.service';
 export class UsersController {
   constructor(private readonly userinfoService: UserinfoService ) {}
 
-  @Get()
+  @Get("getall")
   findAll() {
     return this.userinfoService.findAll2();
   }

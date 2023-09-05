@@ -6,7 +6,7 @@
 
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn, VersionColumn } from 'typeorm'
-import { Profile } from './entities/profile.entity';
+import { Profile } from '../profiles/profile.entity';
 import { Exclude } from 'class-transformer';
 import { Roles } from '../roles/roles.entity';
 
@@ -15,6 +15,7 @@ import { Roles } from '../roles/roles.entity';
 @Entity()
 export class Users {
     @PrimaryGeneratedColumn()
+    @Exclude()
     id: number;
 
     @Column( { unique: true })  // 设定当前键为唯一值
@@ -25,12 +26,15 @@ export class Users {
     password: string;
 
     @CreateDateColumn()  //创建时自动插入日期时间
+    @Exclude()
     createtime: string;
 
     @UpdateDateColumn()
+    @Exclude()
     updatetime: string;
 
     @DeleteDateColumn()
+    @Exclude()
     deletetime: string;
 
     // @Column(() => Name)  引入  嵌入的实体   便于 抽离公共公用column

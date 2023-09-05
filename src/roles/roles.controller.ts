@@ -2,11 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ClassSerializer
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { UserinfoService } from 'src/userinfo/userinfo.service';
 
 @Controller('roles')
 @UseInterceptors(ClassSerializerInterceptor)
 export class RolesController {
-  constructor(private readonly rolesService: RolesService) {}
+  constructor(private readonly rolesService: RolesService,
+    private readonly userinfoService: UserinfoService,) {}
 
   @Post('create')
   create(@Body() createRoleDto: CreateRoleDto) {
@@ -34,5 +36,10 @@ export class RolesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.rolesService.remove(+id);
+  }
+
+  @Post('addrole')
+  addRole(@Body() userAndRole: any){
+    return this.userinfoService.updateRole(userAndRole)
   }
 }

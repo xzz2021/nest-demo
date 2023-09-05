@@ -3,14 +3,14 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './users.entity';
+import { Users } from '../users/users.entity';
 import { Repository } from 'typeorm';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 import { joinQueryInfo } from './dto/join-query-info.dto';
 import { confitionUtils } from 'src/utils/db.auxiliary';
 import { ProfileDto } from './dto/profile.dto';
-import { Profile } from './entities/profile.entity';
+import { Profile } from '../profiles/profile.entity';
 import { Roles } from '../roles/roles.entity';
 
 import * as bcrypt from 'bcrypt';
@@ -81,7 +81,8 @@ export class UserinfoService {
   }
 
   async findOne(username: string) {
-    let res = await this.usersRepository.findOne({ where: {username} })
+    let res = await this.usersRepository.findOne({where: {username},relations: ['role']})
+    // console.log("🚀 ~ file: userinfo.service.ts:85 ~ UserinfoService ~ findOne ~ res:", res)
     return res 
   }
 
@@ -193,8 +194,8 @@ export class UserinfoService {
   }
 
   // 通过用户名查询用户信息
-  findByUsername(userinfo: CreateUsersDto) {
-    return this.usersRepository.findOne({ where: {username: userinfo.username} })
+  findByUsername(username: string) {
+    return this.usersRepository.findOne({ where: {username} })
   }
 
 
@@ -233,5 +234,14 @@ export class UserinfoService {
 
     return  userinfo
 
+  }
+
+
+  async updateRole(userAndRole:any){
+    // return 'test'
+    let { username, role } = userAndRole
+       let curUser = await this.findByUsername(username)
+       curUser.role = role
+       return await this.usersRepository.save(curUser)
   }
 }

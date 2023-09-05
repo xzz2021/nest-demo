@@ -3,7 +3,7 @@
 
 export class ProfileDto {
     userId: number;
-    gender: number;
+    gender: string;
     photo: string;
     address: string;
 }
