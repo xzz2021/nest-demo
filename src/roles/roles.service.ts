@@ -38,7 +38,9 @@ export class RolesService {
     return this.rolesRepository.save(currole)   // 保存实例
   }
 
-  remove(id: number) {
-    return this.rolesRepository.delete(id)
+  async remove(id: number) {
+    const res = await this.rolesRepository.delete(id)
+    if(res.affected == 1) return { msg: `删除id为${id}的角色成功！`}
+
   }
 }

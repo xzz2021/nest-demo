@@ -29,6 +29,10 @@ async function bootstrap() {
 
   // 设置允许跨域
   app.enableCors();
+
+   // 全局注册  正常响应拦截器  同一返回格式
+
+
   // app.setGlobalPrefix('全局接口前缀')
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER))  //  全局替换日志系统
 
@@ -37,6 +41,8 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionFilter(httpAdapter))  // 对全局请求异常错误的过滤器，排除网关根目录请求
   
   app.useGlobalInterceptors(new RequestInterceptor())  //  对全局的接口 请求 进行日志记录
+
+   // 全局注册  正常响应拦截器  同一返回格式
   app.useGlobalInterceptors(new ResponseInterceptor())  //  对全局的接口 响应 进行日志记录
 
   //  全局数据格式校验管道
@@ -44,6 +50,8 @@ async function bootstrap() {
     // 保留dto里定义过的数据字段, 去除前端传递过来的其他字段, 防范恶意代码
     // {whitelist: true,   }
   ));
+
+
 
 
   // 引入自动生成接口文档的swagger

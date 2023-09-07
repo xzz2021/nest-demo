@@ -22,6 +22,10 @@ export class AllExceptionFilter implements ExceptionFilter {
     let  errMsg = exception?.message || HttpException.name
     // console.log("🚀 ~ file: all-exception.ts:23 ~ exception:", exception)
 
+      //   如果 响应正常   不作数据格式处理 
+    // if(httpStatus.toString().startsWith("2")) return 
+    // console.log("🚀 ~ file: all-exception.ts:27 ~ 22222222222222222")
+
     if( exception?.errno == 1062){
       // 这样拦截有缺点， 每次请求错误表格id会自增一位  // 
       errMsg = `传入的值与表格已有数据重复，具体原因: ${exception.sqlMessage}`

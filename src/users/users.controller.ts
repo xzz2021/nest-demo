@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Delete, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, Delete, ClassSerializerInterceptor, UseInterceptors, Body } from '@nestjs/common';
 import { UserinfoService } from 'src/userinfo/userinfo.service';
 
 @Controller('users')
@@ -13,8 +13,8 @@ export class UsersController {
   }
 
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userinfoService.remove(+id);
+  @Delete('delete')
+  remove(@Body() body: {username: string}) {
+    return this.userinfoService.remove(body);
   }
 }

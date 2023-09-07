@@ -73,9 +73,6 @@ export class UserinfoService {
     .leftJoinAndSelect("users.profile", "profile")
     .leftJoinAndSelect("users.role", "role")
     .getMany()
-
-    
-    
     return  allUsers
 
   }
@@ -165,10 +162,10 @@ export class UserinfoService {
     return  res.affected ? '修改成功': '修改失败'
   }
 
-  async remove(id: number) {
-    let res = await this.usersRepository.delete(id)
-    if(res.affected == 1) return `删除用户${id}成功！`;
-    return '删除失败'
+  async remove(body) {
+    let res = await this.usersRepository.delete(body)
+    if(res.affected == 1) return { msg: `删除用户${body.username}成功！`}
+    // return await this.usersRepository.delete(body)
   }
 
 

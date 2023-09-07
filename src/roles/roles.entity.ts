@@ -2,9 +2,8 @@
 //定义表格的column，表的名称会以class小写命名
 
 //  此处定义完会直接连接数据库生成表， 新增和移除column也能自动完成
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm'
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn, Relation } from 'typeorm'
 import { Users } from '../users/users.entity';
-import { Exclude } from 'class-transformer';
 // import { UsersRole } from './usersrole.entity';
 
 

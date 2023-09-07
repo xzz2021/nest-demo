@@ -47,7 +47,8 @@ export class Users {
 
    //  第一个参数是关联的类， 也即被关联的表格名
    //  cascade 代表可以直接对关联表单进行操作
-    @OneToOne(() => Profile, { cascade: true})   //关联表单，需要在关联的两张表的entity里都声明OneToOne， 实现映射
+   //  onDelete  代表主表项删除时也对关联表单进行删除
+    @OneToOne(() => Profile, { cascade: true, onDelete: 'CASCADE'})   //关联表单，需要在关联的两张表的entity里都声明OneToOne， 实现映射
     @JoinColumn()   // 定义了JoinColumn  代表他是关联表的所有者   会生成profileId作为关联列
     profile: Profile;  
 

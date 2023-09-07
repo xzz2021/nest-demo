@@ -8,7 +8,7 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(username: string) {
+    return `This action removes a #${username} user`;
   }
 }
