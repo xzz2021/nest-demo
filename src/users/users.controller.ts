@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Delete, ClassSerializerInterceptor, UseInterceptors, Body } from '@nestjs/common';
+import { Controller, Get, Param, Delete, ClassSerializerInterceptor, UseInterceptors, Body, Post } from '@nestjs/common';
 import { UserinfoService } from 'src/userinfo/userinfo.service';
 
 @Controller('users')
@@ -10,6 +10,13 @@ export class UsersController {
   @Get("getall")
   findAll() {
     return this.userinfoService.findAll2();
+  }
+
+
+  @Post("modifyinfo")
+  modifyInfo(@Body() newInfo: any) {
+    console.log("🚀 ~ file: users.controller.ts:18 ~ UsersController ~ modifyInfo ~ newInfo:", newInfo)
+    return this.userinfoService.modifyInfo(newInfo);
   }
 
 

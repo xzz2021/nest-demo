@@ -20,6 +20,11 @@ export class RolesController {
     return this.rolesService.findAll();
   }
 
+  @Get('getarr')
+  findRoleArr() {
+    return this.rolesService.findRoleArr();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.rolesService.findOne(+id);

@@ -23,6 +23,12 @@ export class RolesService {
 
   }
 
+  async findRoleArr(){
+    let roleArr = await this.rolesRepository.find()
+    let newRoleArr = roleArr.map(item => item.name)
+    return newRoleArr
+  }
+
   findOne(id: number) {
     return this.rolesRepository.findOne({
       where: {

@@ -164,7 +164,7 @@ export class UserinfoService {
 
   async remove(body) {
     let res = await this.usersRepository.delete(body)
-    if(res.affected == 1) return { msg: `删除用户${body.username}成功！`}
+    if(res.affected == 1) return { msg: `已删除用户: ${body.username}！`}
     // return await this.usersRepository.delete(body)
   }
 
@@ -240,5 +240,21 @@ export class UserinfoService {
        let curUser = await this.findByUsername(username)
        curUser.role = role
        return await this.usersRepository.save(curUser)
+  }
+
+    //  修改用户信息
+  async modifyInfo(newInfo: any){
+    const { oldUsername, username, userrole } = newInfo
+    let curUser = await this.usersRepository.findOne({ where: {username: oldUsername} })
+    let roleSave = await Promise.all(
+      userrole.map(async(item: any )  => {
+       return  await this.rolesRepository.findOne({where:{name: item}})
+     })
+    )
+    curUser.username = username
+    curUser.role = roleSave
+    console.log("🚀 ~ file: userinfo.service.ts:254 ~ UserinfoService ~ modifyInfo ~ curUser:", curUser)
+    // return 'test'
+    return await this.usersRepository.save(curUser)
   }
 }
