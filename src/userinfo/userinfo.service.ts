@@ -131,7 +131,7 @@ export class UserinfoService {
         }
       }
       })
-      console.log("🚀 ~ file: userinfo.service.ts:100 ~ UserinfoService ~ updateprofile ~ profileInfo:", profileInfo)
+      // console.log("🚀 ~ file: userinfo.service.ts:100 ~ UserinfoService ~ updateprofile ~ profileInfo:", profileInfo)
       // const profileId = profileInfo.profile.id
 
       return 'test'
@@ -195,7 +195,6 @@ export class UserinfoService {
     return this.usersRepository.findOne({ where: {username} })
   }
 
-
   async findRole(username){
     // 拿到role数组
     let curuser: any = await  this.usersRepository.find(
@@ -206,8 +205,7 @@ export class UserinfoService {
         leftJoinAndSelect: {
           myrole: "users.myrole"
         }
-    }}
-      )
+    }})
       // return curuser
       let roleArray = []
       Object.values(curuser[0].myrole).forEach(item  => {
@@ -216,15 +214,11 @@ export class UserinfoService {
 
       // return roleArray
       let newroleArray = []
-
-
       for( const item of roleArray){
         let rolename = await  this.rolesRepository.find( { where: {id: item} })
           newroleArray.push(rolename[0]['role'])
-        
       }
          return newroleArray
-
   }
 
   getInfo(userinfo){
@@ -253,8 +247,6 @@ export class UserinfoService {
     )
     curUser.username = username
     curUser.role = roleSave
-    console.log("🚀 ~ file: userinfo.service.ts:254 ~ UserinfoService ~ modifyInfo ~ curUser:", curUser)
-    // return 'test'
     return await this.usersRepository.save(curUser)
   }
 }

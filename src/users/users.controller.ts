@@ -15,7 +15,7 @@ export class UsersController {
 
   @Post("modifyinfo")
   modifyInfo(@Body() newInfo: any) {
-    console.log("🚀 ~ file: users.controller.ts:18 ~ UsersController ~ modifyInfo ~ newInfo:", newInfo)
+    // console.log("🚀 ~ file: users.controller.ts:18 ~ UsersController ~ modifyInfo ~ newInfo:", newInfo)
     return this.userinfoService.modifyInfo(newInfo);
   }
 
