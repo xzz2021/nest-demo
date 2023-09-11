@@ -221,11 +221,7 @@ export class UserinfoService {
          return newroleArray
   }
 
-  getInfo(userinfo){
 
-    return  userinfo
-
-  }
 
 
   async updateRole(userAndRole:any){
