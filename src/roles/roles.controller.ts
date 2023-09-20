@@ -1,8 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ClassSerializerInterceptor, UseInterceptors, UseGuards } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { UserinfoService } from 'src/userinfo/userinfo.service';
+import { Role } from './roles.enum';
+import { Roles } from 'src/allProcessor/decorator/roles';
+import { JwtAuthGuard } from 'src/allProcessor/guard/auth.guard';
+import { RolesGuard } from 'src/allProcessor/guard/role.guard';
 
 @Controller('roles')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -16,6 +20,9 @@ export class RolesController {
   }
 
   @Get('getall')
+  @Roles(Role.Admin)  //  注明允许的身份
+  @UseGuards(RolesGuard) // 引入角色守卫
+  @UseGuards(JwtAuthGuard) // 引入jwt解析req.user
   findAll() {
     return this.rolesService.findAll();
   }

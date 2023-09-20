@@ -18,6 +18,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { ProfilesModule } from './profiles/profiles.module';
 import { MenusModule } from './menus/menus.module';
+import { RolesGuard } from './allProcessor/guard/role.guard';
 // import * as Joi from 'joi'  // 引入字段校验,可以检验变量类型是否合法
 
 // @Global()  //  使此app模块引入的依赖能够作为全局依赖应用到所有子模块
@@ -66,7 +67,11 @@ import { MenusModule } from './menus/menus.module';
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard
-    }
+    },
+    // { //  全局注册RBAC角色守卫
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard
+    // }
     ],
   //  全局注入过滤器或其他组件
   // providers: [{ provide: APP_FILTER,useClass: HttpExceptionFilter }]
