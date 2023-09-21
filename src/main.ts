@@ -59,7 +59,7 @@ async function bootstrap() {
     .setTitle('接口文档')
     .setDescription('包含所有创建的接口')
     .setVersion('1.0')
-    .addTag('xzz2022')
+    // .addTag('xzz2022')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
