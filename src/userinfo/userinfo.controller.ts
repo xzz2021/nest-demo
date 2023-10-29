@@ -74,7 +74,6 @@ export class UserinfoController {
 
   @Get('joinquery')  // 联合查询
   joinQuery(@Query() joinQueryParams: joinQueryInfo) {
-
     this.userinfoService.joinQuery(joinQueryParams)
   }
 
